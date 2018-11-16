@@ -1,16 +1,12 @@
 package com.example.farahshadid.callyourmother;
 
 import android.util.Log;
-import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 
 
-public class TopContacts extends  User{
+
+public class TopContacts {
     public String user;
     public String contactName;
     public int amountAccepted;
@@ -18,11 +14,6 @@ public class TopContacts extends  User{
 
     private DatabaseReference mDatabase;
     private static final String TAG = "Firebase Problem";
-
-    //Default Constructor
-    public TopContacts() {
-
-    }
 
     public TopContacts(String user, String contactName, int amountAccepted, int amountNotified) {
         this.user = user;
@@ -33,22 +24,44 @@ public class TopContacts extends  User{
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    private void writeNewContact(String user, String contactName, int amountAccepted, int amountNotified) {
+    /**
+     * add a top contact for a user
+     *
+     *
+     * @param user
+     * @param contactName
+     * @param amountAccepted
+     * @param amountNotified
+     */
+    public void writeNewContact(String user, String contactName, int amountAccepted, int amountNotified) {
         TopContacts contact = new TopContacts(user,contactName,amountAccepted,amountNotified);
-
-        mDatabase.child("Top Contact").child(user).setValue(contact);
+        mDatabase.child("topContacts").child(user).child(contactName).setValue(contact);
+        Log.v(TAG, "inserted " + contactName+ " to the database under " + user + "'s list");
     }
 
+    /**
+     * remove a top contact for a user
+     *
+     * @param username
+     * @param contactName
+     */
+    public void removeTopContact(String username, String contactName){
+        mDatabase.child("topContacts").child(user).child(contactName).removeValue();
+        Log.v(TAG, "removed " + contactName + " from the database");
+    }
+
+
+    /*
     private void addTopContact(User user, String userId, String topContact) {
         if(user.topContacts.size() <= 5){
-            mDatabase.child("Top Contacts").child(userId).child("top contacts").setValue(topContact);
+            mDatabase.child("topContacts").child(userId).child("topContacts").setValue(topContact);
+            mDatabase.child("users").child(user.username).child("topContacts").setValue(user.topContacts.add(topContact));
         }
         else{
             // Add an alert dialouge
-           Log.e(TAG,"Please Remove a top contact");
+            Log.e(TAG,"Please Remove a top contact");
         }
-
-        }
+    }*/
 
 
 
