@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-    private ArrayList<String> names;
+    private ArrayList<Contact> contacts;
+    private ArrayList<Contact> selectedContacts;
     SparseBooleanArray selected;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -32,21 +33,23 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
-    public int getSelected() {
-        return selected.size();
+    public ArrayList<Contact> getSelected() {
+        return selectedContacts;
     }
 
-    ListAdapter(ArrayList<String> name) {
-        names = name;
+    ListAdapter(ArrayList<Contact> contacts) {
+        this.contacts = contacts;
+        Collections.sort(this.contacts, new ContactComparator());
+
+        selectedContacts = new ArrayList<>();
 
         selected = new SparseBooleanArray();
-        Collections.sort(names);
     }
 
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return contacts.size();
     }
 
     @Override
@@ -57,15 +60,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-        viewHolder.name.setText(names.get(i));
+        viewHolder.name.setText(contacts.get(i).name);
         viewHolder.check.setChecked(selected.get(i));
         viewHolder.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (viewHolder.check.isChecked()) {
                     selected.put(i, true);
+                    selectedContacts.add(contacts.get(i));
                 } else {
                     selected.delete(i);
+                    selectedContacts.remove(i);
                 }
             }
         });
@@ -76,8 +81,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 viewHolder.check.toggle();
                 if (viewHolder.check.isChecked()) {
                     selected.put(i, true);
+                    selectedContacts.add(contacts.get(i));
                 } else {
                     selected.delete(i);
+                    selectedContacts.remove(i);
                 }
             }
         });

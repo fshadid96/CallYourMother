@@ -21,7 +21,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ContactActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -30,18 +29,20 @@ public class ContactActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     ListAdapter adapter;
     final int READ_CONTACTS = 0;
-    ArrayList<String> names;
-    HashMap<String, ArrayList<String>> numbers;
+    ArrayList<Contact> contacts;
     CoordinatorLayout parent;
+    boolean started = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
+        started = true;
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Choose Contacts");
+        getSupportActionBar().setTitle("Choose Your Contacts");
 
         recyclerView = findViewById(R.id.list);
         recyclerView.setHasFixedSize(true);
@@ -51,17 +52,17 @@ public class ContactActivity extends AppCompatActivity {
 
         parent = findViewById(R.id.parent);
 
-        names = new ArrayList<>();
-        numbers = new HashMap<>();
+        contacts = new ArrayList<>();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager
                 .PERMISSION_GRANTED) {
+
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS);
         } else {
             getContacts();
         }
 
-        adapter = new ListAdapter(names);
+        adapter = new ListAdapter(contacts);
         recyclerView.setAdapter(adapter);
 
         final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -69,10 +70,12 @@ public class ContactActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (adapter.getSelected() > 0) {
+                if (adapter.getSelected().size() > 0) {
                     pref.edit().putBoolean(SplashActivity.PREF_KEY, false).apply();
                     // Launch home activity
-                    startActivity(new Intent(ContactActivity.this, HomeActivity.class));
+                    Intent i = new Intent(ContactActivity.this, HomeActivity.class);
+                    i.putExtra("contacts", adapter.getSelected());
+                    startActivity(i);
                     finish();
                 } else {
                     Snackbar.make(view, "Please choose some contacts", Snackbar.LENGTH_SHORT).setAction("Action",
@@ -90,7 +93,6 @@ public class ContactActivity extends AppCompatActivity {
             while (cursor != null && cursor.moveToNext()) {
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                names.add(name);
 
                 if (cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
                     Cursor cursor1 = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
@@ -103,7 +105,8 @@ public class ContactActivity extends AppCompatActivity {
                         temp.add(number);
                     }
 
-                    numbers.put(name, temp);
+                    Contact c = new Contact(Integer.parseInt(id), name, temp);
+                    contacts.add(c);
                     cursor1.close();
                 }
             }
@@ -124,10 +127,12 @@ public class ContactActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getContacts();
                 } else {
+                    fab.setEnabled(false);
                     Snackbar.make(parent, "Allow access to contacts", Snackbar.LENGTH_INDEFINITE).setAction("OK", new
                             View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            fab.setEnabled(true);
                             if (ContextCompat.checkSelfPermission(ContactActivity.this, Manifest.permission
                                     .READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                                 ActivityCompat.requestPermissions(ContactActivity.this, new String[]{Manifest
