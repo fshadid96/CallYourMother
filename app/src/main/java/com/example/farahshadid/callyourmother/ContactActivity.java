@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.os.Build;
 
 import java.util.ArrayList;
 
@@ -28,6 +29,7 @@ public class ContactActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ListAdapter adapter;
+    User user;
     final int READ_CONTACTS = 0;
     ArrayList<Contact> contacts;
     CoordinatorLayout parent;
@@ -37,6 +39,10 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
+        /*****************/
+        // some code I tested to check writing for the database
+        //TODO delete this code
         contacts = new ArrayList<>();
         ArrayList<String> numbers  = new ArrayList<String>();
         numbers.add("!@#!@#");
@@ -50,8 +56,11 @@ public class ContactActivity extends AppCompatActivity {
         contacts.add(two);
         contacts.add(three);
 
-        User usr = new User("Luke", contacts);
+        User usr = new User("ZUCKY", contacts);
         usr.writeNewUser(usr.username, contacts);
+        /*****************/
+
+
         started = true;
 
         toolbar = findViewById(R.id.toolbar);
@@ -74,6 +83,7 @@ public class ContactActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, READ_CONTACTS);
         } else {
             getContacts();
+            user = new User(getDeviceName(), contacts);
         }
 
         adapter = new ListAdapter(contacts);
@@ -158,6 +168,35 @@ public class ContactActivity extends AppCompatActivity {
                     }).show();
                 }
             }
+        }
+    }
+
+    /**
+     *Got the device name and to set it as a user
+     *
+     * Source: https://stackoverflow.com/questions/7071281/get-android-device-name
+     * @return
+     */
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+
+    private String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
         }
     }
 }
