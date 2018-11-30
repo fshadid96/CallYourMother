@@ -61,15 +61,6 @@ public class StatsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // what do you want here
-            }
-        });
 
         userName = "Luke";
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -93,18 +84,19 @@ public class StatsActivity extends AppCompatActivity {
         person4Name = findViewById(R.id.person4Name);
         person4Name = findViewById(R.id.person5Name);
 
-
+        // Going through database to update the statistics and commitment score.
         mDatabase.child("Users").child(userName).child("topContacts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 totalNotifications = 0;
                 totalCallsMade = 0;
-                int counter = 0; //Will use this to tell which textViews to update
+                int counter = 0; //Will use this to figure out which textViews to update
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
                     Long callsMade = (Long) postSnapshot.child("amountAccepted").getValue();
                     Long notifications = (Long) postSnapshot.child("amountNotified").getValue();
                     String personName = (String) postSnapshot.child("name").getValue();
+
                     if (!(callsMade == null || notifications == null || personName == null)) {
                         totalNotifications += notifications;
                         totalCallsMade += callsMade;
@@ -137,7 +129,6 @@ public class StatsActivity extends AppCompatActivity {
                         }
                         counter += 1;
                     }
-                    //Log.i(TAG,totalNotifications.toString());
                 }
                 percentage = (totalCallsMade * 100.0f) / totalNotifications;
                 GradientDrawable statsCircleBackground = (GradientDrawable) statsCircle.getBackground();
@@ -154,6 +145,8 @@ public class StatsActivity extends AppCompatActivity {
                     statsCircle.setTextColor(Color.GREEN);
                 }
                 statsCircle.setText(percentage + "%");
+                // Updating db
+                mDatabase.child("Users").child(userName).child("commitmentScore").setValue(percentage);
             }
 
             @Override
