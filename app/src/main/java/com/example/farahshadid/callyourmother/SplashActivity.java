@@ -24,8 +24,9 @@ public class SplashActivity extends AppCompatActivity {
             // Launch home activity
             startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         }
-
         // Exit if users come back
         finish();
     }
+
+
 }
