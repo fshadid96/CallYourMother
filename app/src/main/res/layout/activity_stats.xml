@@ -20,7 +20,8 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"></android.support.v7.widget.Toolbar>
+                android:layout_height="?attr/actionBarSize"
+                app:title=" "></android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -35,7 +36,7 @@
             tools:context=".StatsActivity">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/statsCircle"
                 android:layout_width="142dp"
                 android:layout_height="128dp"
                 android:layout_marginEnd="121dp"
@@ -67,7 +68,7 @@
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center|bottom"
+                        android:gravity="center_vertical|center"
                         android:orientation="vertical">
 
                         <TableRow
@@ -76,22 +77,19 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/textView3"
+                                android:id="@+id/person1Name"
                                 android:layout_width="175dp"
-                                android:layout_height="wrap_content"
-                                android:text="Person1" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView7"
+                                android:id="@+id/person1CallsMade"
                                 android:layout_width="111dp"
-                                android:layout_height="match_parent"
-                                android:text="0" />
+                                android:layout_height="match_parent" />
 
                             <TextView
-                                android:id="@+id/textView12"
+                                android:id="@+id/person1Notifications"
                                 android:layout_width="97dp"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
 
                         </TableRow>
 
@@ -100,22 +98,19 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textView4"
+                                android:id="@+id/person2Name"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Person2" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView8"
+                                android:id="@+id/person2CallsMade"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView13"
+                                android:id="@+id/person2Notifications"
                                 android:layout_width="97dp"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
                         </TableRow>
 
                         <TableRow
@@ -123,22 +118,19 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textView5"
+                                android:id="@+id/person3Name"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Person3" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView9"
+                                android:id="@+id/person3CallsMade"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView14"
+                                android:id="@+id/person3Notifications"
                                 android:layout_width="97dp"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
                         </TableRow>
 
                         <TableRow
@@ -146,22 +138,19 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textView16"
+                                android:id="@+id/person4Name"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Person4" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView17"
+                                android:id="@+id/person4CallsMade"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView18"
+                                android:id="@+id/person4Notifications"
                                 android:layout_width="97dp"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
                         </TableRow>
 
                         <TableRow
@@ -169,24 +158,21 @@
                             android:layout_height="match_parent">
 
                             <TextView
-                                android:id="@+id/textView6"
+                                android:id="@+id/person5Name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Person5"
                                 tools:layout_editor_absoluteX="0dp"
                                 tools:layout_editor_absoluteY="505dp" />
 
                             <TextView
-                                android:id="@+id/textView15"
+                                android:id="@+id/person5CallsMade"
                                 android:layout_width="97dp"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
-                                android:id="@+id/textView10"
+                                android:id="@+id/person5Notifications"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0" />
+                                android:layout_height="wrap_content" />
                         </TableRow>
                     </TableLayout>
                 </LinearLayout>
@@ -200,9 +186,10 @@
                 android:layout_marginStart="188dp"
                 android:layout_marginTop="160dp"
                 android:text="Calls Made"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/scrollView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintTop_toBottomOf="@+id/statsCircle" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -211,7 +198,8 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="375dp"
-                android:text="Calls Missed"
+                android:text="Notifications"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/scrollView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView"
@@ -231,6 +219,36 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="19dp"
+                android:layout_marginBottom="80dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="56dp"
+                android:text="Your commitment score is based on the statistics below."
+                android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statsCircle"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginEnd="98dp"
+                android:layout_marginTop="80dp"
+                android:text="Contact Name"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>

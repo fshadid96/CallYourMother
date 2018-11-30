@@ -22,10 +22,11 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(new Intent(SplashActivity.this, ContactActivity.class));
         } else {
             // Launch home activity
-            startActivity(new Intent(SplashActivity.this, StatsActivity.class));
+            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
         }
-
         // Exit if users come back
         finish();
     }
+
+
 }
