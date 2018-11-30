@@ -12,16 +12,16 @@ import java.util.ArrayList;
 
 public class User {
     public String username;
-    public ArrayList<TopContacts> topContacts;
+    public ArrayList<Contact> topContacts;
     public int commitmentScore;
     private DatabaseReference mDatabase;
     public static FirebaseDatabase database;
     private static final String TAG = "Firebase Activity: ";
 
-    public User(String username,ArrayList<TopContacts> topContacts){
+    public User(String username,ArrayList<Contact> topContacts){
         this.username = username;
-        this.topContacts = new ArrayList<TopContacts>();
-        this.commitmentScore = commitmentScore;
+        this.topContacts = new ArrayList<Contact>();
+        this.commitmentScore = 0;
         mDatabase = FirebaseDatabase.getInstance().getReference().getRoot();
         database = FirebaseDatabase.getInstance();
 
@@ -32,12 +32,12 @@ public class User {
      * @param userId
      * @param topContactsList
      */
-    public void writeNewUser(String userId, ArrayList<TopContacts> topContactsList) {
+    public void writeNewUser(String userId, ArrayList<Contact> topContactsList) {
         User user = new User(userId, topContactsList);
         mDatabase.child("Users").child(userId).setValue(user);
 
-        for(TopContacts topContacts: topContactsList){
-            mDatabase.child("Users").child(userId).child("topContacts").child(topContacts.contactName).setValue(topContacts);
+        for(Contact contact: topContactsList){
+            mDatabase.child("Users").child(userId).child("topContacts").child(contact.getName()).setValue(contact);
         }
         Log.v(TAG, "inserted " + userId + " to the database");
     }
@@ -69,7 +69,7 @@ public class User {
 
     }
 
-    public ArrayList<TopContacts> getTopContacts() {
+    public ArrayList<Contact> getTopContacts() {
         return topContacts;
     }
 
