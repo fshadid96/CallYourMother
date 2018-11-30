@@ -1,21 +1,27 @@
 package com.example.farahshadid.callyourmother;
 import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class User {
     public String username;
-    public ArrayList<String> topContacts;
+    public ArrayList<Contact> topContacts;
     public int commitmentScore;
     private DatabaseReference mDatabase;
-    private FirebaseDatabase database;
+    public static FirebaseDatabase database;
     private static final String TAG = "Firebase Activity: ";
 
-    public User(String username,ArrayList<String> topContacts, int commitmentScore){
+    public User(String username,ArrayList<Contact> topContacts){
         this.username = username;
-        this.topContacts = topContacts;
-        this.commitmentScore = commitmentScore;
+        this.topContacts = new ArrayList<Contact>();
+        this.commitmentScore = 0;
         mDatabase = FirebaseDatabase.getInstance().getReference().getRoot();
         database = FirebaseDatabase.getInstance();
 
@@ -26,11 +32,47 @@ public class User {
      * @param userId
      * @param topContactsList
      */
-    public void writeNewUser(String userId, ArrayList<String> topContactsList) {
-        User user = new User(userId,topContactsList,0);
+    public void writeNewUser(String userId, ArrayList<Contact> topContactsList) {
+        User user = new User(userId, topContactsList);
         mDatabase.child("Users").child(userId).setValue(user);
+
+        for(Contact contact: topContactsList){
+            mDatabase.child("Users").child(userId).child("topContacts").child(contact.getName()).setValue(contact);
+        }
         Log.v(TAG, "inserted " + userId + " to the database");
     }
+
+    /**
+     * get the commitment score of this user
+     * @return
+     */
+    public int getCommitmentScore() {
+
+        // Get a reference to our posts
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().getRoot().child("Users").child(this.username);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int commitmentScore = dataSnapshot.child("commitmentScore").getValue(Integer.class);
+                System.out.println("The commitment Score: "  + commitmentScore);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        return commitmentScore;
+
+    }
+
+    public ArrayList<Contact> getTopContacts() {
+        return topContacts;
+    }
+
 
     /**
      * remove a user from the data base
