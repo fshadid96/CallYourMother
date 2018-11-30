@@ -37,7 +37,21 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+        contacts = new ArrayList<>();
+        ArrayList<String> numbers  = new ArrayList<String>();
+        numbers.add("!@#!@#");
+        numbers.add("342" );
+        numbers.add("234");
 
+        Contact one = new Contact(4,"Jacob", numbers, 0,0);
+        Contact two = new Contact(5,"Noah", numbers, 0,0);
+        Contact three = new Contact(8,"Caleb", numbers, 0,0);
+        contacts.add(one);
+        contacts.add(two);
+        contacts.add(three);
+
+        User usr = new User("Luke", contacts);
+        usr.writeNewUser(usr.username, contacts);
         started = true;
 
         toolbar = findViewById(R.id.toolbar);
@@ -105,7 +119,7 @@ public class ContactActivity extends AppCompatActivity {
                         temp.add(number);
                     }
 
-                    Contact c = new Contact(Integer.parseInt(id), name, temp);
+                    Contact c = new Contact(Integer.parseInt(id), name, temp,0 , 0);
                     contacts.add(c);
                     cursor1.close();
                 }
