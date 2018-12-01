@@ -55,9 +55,7 @@ public class User {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("commitmentScore").exists()) {
-                    int commitmentScore = dataSnapshot.child("commitmentScore").getValue(Integer.class);
-                }
+                int commitmentScore = dataSnapshot.child("commitmentScore").getValue(Integer.class);
                 System.out.println("The commitment Score: "  + commitmentScore);
             }
 
