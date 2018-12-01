@@ -58,8 +58,8 @@ public class StatsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_stats);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
 
         userName = "Luke";
@@ -154,14 +154,6 @@ public class StatsActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-
     }
 
 }
