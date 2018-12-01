@@ -61,21 +61,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
         viewHolder.name.setText(contacts.get(i).name);
-        if (contacts.get(i).image != null) {
-            viewHolder.icon.setImageBitmap(contacts.get(i).image);
-        } else {
-            viewHolder.icon.setImageResource(R.drawable.ic_account_circle_24dp);
-        }
         viewHolder.check.setChecked(selected.get(i));
         viewHolder.check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (viewHolder.check.isChecked()) {
                     selected.put(i, true);
-                    selectedContacts.add(i, contacts.get(i));
+                    selectedContacts.add(contacts.get(i));
                 } else {
                     selected.delete(i);
-                    selectedContacts.remove(contacts.get(i));
+                    selectedContacts.remove(i);
                 }
             }
         });
@@ -89,7 +84,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     selectedContacts.add(contacts.get(i));
                 } else {
                     selected.delete(i);
-                    selectedContacts.remove(contacts.get(i));
+                    selectedContacts.remove(i);
                 }
             }
         });

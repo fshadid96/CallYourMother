@@ -1,19 +1,42 @@
 package com.example.farahshadid.callyourmother;
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 
 public class Contact {
-    long id;
+    int id;
     String name;
     private ArrayList<String> numbers;
-    Bitmap image;
+    private int amountAccepted;
+    private int amountNotified;
 
-    public Contact (long id, String name, ArrayList<String> numbers, Bitmap image) {
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<String> getNumbers() {
+        return numbers;
+    }
+
+    public int getAmountAccepted() {
+        return amountAccepted;
+    }
+
+    public int getAmountNotified() {
+        return amountNotified;
+    }
+
+
+    public Contact (int id, String name, ArrayList<String> numbers, int amountAccepted,
+                    int amountNotified) {
         this.id = id;
         this.name = name;
         this.numbers = numbers;
-        this.image = image;
+        this.amountAccepted = amountAccepted;
+        this.amountNotified = amountNotified;
+
     }
 }
