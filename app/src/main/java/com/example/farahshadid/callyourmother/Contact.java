@@ -1,10 +1,10 @@
 package com.example.farahshadid.callyourmother;
 
 import android.graphics.Bitmap;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Contact {
+public class Contact implements Serializable {
     int id;
     String name;
     private ArrayList<String> numbers;
@@ -41,5 +41,6 @@ public class Contact {
         this.amountAccepted = amountAccepted;
         this.amountNotified = amountNotified;
         this.image = image;
+
     }
 }
