@@ -2,10 +2,20 @@ package com.example.farahshadid.callyourmother;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
@@ -19,8 +29,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.os.Build;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ContactActivity extends AppCompatActivity {
@@ -49,9 +60,9 @@ public class ContactActivity extends AppCompatActivity {
         numbers.add("342" );
         numbers.add("234");
 
-        Contact one = new Contact(4,"Jacob", numbers, 0,0);
-        Contact two = new Contact(5,"Noah", numbers, 0,0);
-        Contact three = new Contact(8,"Caleb", numbers, 0,0);
+        Contact one = new Contact(4,"Jacob", numbers, 0,0, null);
+        Contact two = new Contact(5,"Noah", numbers, 0,0, null);
+        Contact three = new Contact(8,"Caleb", numbers, 0,0, null);
         contacts.add(one);
         contacts.add(two);
         contacts.add(three);
@@ -129,7 +140,13 @@ public class ContactActivity extends AppCompatActivity {
                         temp.add(number);
                     }
 
-                    Contact c = new Contact(Integer.parseInt(id), name, temp,0 , 0);
+                    InputStream stream = getImage(Long.parseLong(id));
+                    Bitmap icon = null;
+                    if (stream != null) {
+                        icon = getCircleBitmap(BitmapFactory.decodeStream(stream));
+                    }
+
+                    Contact c = new Contact(Integer.parseInt(id), name, temp,0 , 0, icon);
                     contacts.add(c);
                     cursor1.close();
                 }
@@ -143,6 +160,43 @@ public class ContactActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
+
+    public InputStream getImage(long contactId) {
+        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+        Cursor cursor = getContentResolver().query(photoUri, new String[]{ContactsContract.Contacts.Photo.PHOTO},
+                null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        try {
+            if (cursor.moveToFirst()) {
+                byte[] data = cursor.getBlob(0);
+                if (data != null) {
+                    return new ByteArrayInputStream(data);
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+        return null;
+    }
+    // https://stackoverflow.com/questions/11932805/cropping-circular-area-from-bitmap-in-android
+    public Bitmap getCircleBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
