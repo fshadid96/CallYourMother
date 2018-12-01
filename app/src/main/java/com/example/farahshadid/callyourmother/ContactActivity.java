@@ -1,8 +1,10 @@
 package com.example.farahshadid.callyourmother;
 
 import android.Manifest;
+import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -27,14 +29,18 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     Toolbar toolbar;
     FloatingActionButton fab;
     RecyclerView recyclerView;
@@ -83,18 +89,55 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (adapter.getSelected().size() > 0) {
-                    pref.edit().putBoolean(SplashActivity.PREF_KEY, false).apply();
-                    // Launch home activity
-                    Intent i = new Intent(ContactActivity.this, HomeActivity.class);
-                    i.putExtra("contacts", adapter.getSelected());
-                    startActivity(i);
-                    finish();
+                    if (adapter.getSelected().size() > 5) {
+                        Snackbar.make(view, "Only choose up to 5 contacts", Snackbar.LENGTH_SHORT).setAction("Action",
+                                null).show();
+                    } else {
+                        ArrayList<Contact> selected = adapter.getSelected();
+                        System.out.print("size of line adapter: " + selected.size());
+                        user = new User(getDeviceName(), selected);
+                        user.writeNewUser(getDeviceName(), selected);
+
+                        pref.edit().putBoolean(SplashActivity.PREF_KEY, false).apply();
+                        // Launch home activity
+                        Intent i = new Intent(ContactActivity.this, HomeActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
                 } else {
                     Snackbar.make(view, "Please choose some contacts", Snackbar.LENGTH_SHORT).setAction("Action",
                             null).show();
                 }
             }
         });
+    }
+
+    /**
+     *Got the device name and to set it as a user
+     *
+     * Source: https://stackoverflow.com/questions/7071281/get-android-device-name
+     * @return
+     */
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+    private String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
     }
 
     private void getContacts() {
@@ -133,9 +176,8 @@ public class ContactActivity extends AppCompatActivity {
             cursor.close();
         }
 
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-        }
+        adapter = new ListAdapter(contacts);
+        recyclerView.setAdapter(adapter);
     }
 
     public InputStream getImage(long contactId) {
@@ -174,6 +216,35 @@ public class ContactActivity extends AppCompatActivity {
         return output;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) ContactActivity.this.getSystemService(Context.SEARCH_SERVICE);
+
+        SearchView searchView;
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(ContactActivity.this.getComponentName()));
+            searchView.setOnQueryTextListener(this);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query) {
+        adapter.filter(query.toLowerCase());
+        adapter.notifyDataSetChanged();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
