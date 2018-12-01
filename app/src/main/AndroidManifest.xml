@@ -29,6 +29,21 @@
             android:name=".StatsActivity"
             android:label="@string/title_activity_stats"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Notifications"
+            android:label="Notifications"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UpdateNotification"
+            android:label="UpdateNotification"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <receiver
+            android:name=".MyAlarmReceiver"
+            android:process=":remote" >
+        </receiver>
+        <service
+            android:name=".MyService"
+            android:exported="false"/>
     </application>
 
 </manifest>
