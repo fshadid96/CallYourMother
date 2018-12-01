@@ -25,6 +25,7 @@
         android:layout_width="38dp"
         android:layout_height="38dp"
         android:layout_marginStart="16dp"
+        android:tint="@color/colorPrimary"
         android:src="@drawable/ic_account_circle_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/checkbox"
