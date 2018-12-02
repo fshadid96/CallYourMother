@@ -26,10 +26,6 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".HomeActivity"></activity>
         <activity
-            android:name=".StatsActivity"
-            android:label="@string/title_activity_stats"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".Notifications"
             android:label="Notifications"
             android:theme="@style/AppTheme.NoActionBar"></activity>
