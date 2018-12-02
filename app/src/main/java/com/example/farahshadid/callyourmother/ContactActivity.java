@@ -46,7 +46,7 @@ public class ContactActivity extends AppCompatActivity implements SearchView.OnQ
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ListAdapter adapter;
-    User user;
+    static User user;
     final int READ_CONTACTS = 0;
     ArrayList<Contact> contacts;
     CoordinatorLayout parent;
