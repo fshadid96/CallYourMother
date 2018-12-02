@@ -20,7 +20,7 @@ public class User {
 
     public User(String username,ArrayList<Contact> topContacts){
         this.username = username;
-        this.topContacts = topContacts;
+        this.topContacts = new ArrayList<Contact>();
         this.commitmentScore = 0;
         mDatabase = FirebaseDatabase.getInstance().getReference().getRoot();
         database = FirebaseDatabase.getInstance();
