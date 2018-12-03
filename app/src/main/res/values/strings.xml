@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Call</string>
+    <string name="app_name">Callbuddy</string>
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_stats">StatsActivity</string>
     <string name="top_contact_text">Top Contacts</string>
     <string name="suggestion_text">Suggestions</string>
+    <string name="delete_a_contact">Click a button to delete A contact</string>
+    <string name="remind">How often would you like to be reminded</string>
+
 </resources>
