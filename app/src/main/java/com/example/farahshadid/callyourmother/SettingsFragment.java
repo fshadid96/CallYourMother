@@ -39,7 +39,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     EditText notiNumView;
     Button addContact;
     static int notiNum ;
-    static int addCount = 5;
+    static int addCount = 0;
     private DatabaseReference mDatabase;
     private FirebaseDatabase db;
     private static final String TAG = "Firebase Activity: ";
@@ -73,10 +73,12 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         notiNum = Integer.parseInt(notiNumView.getText().toString());
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+
         mDatabase.child("Users").child(getDeviceName()).child("topContacts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) {
+                    addCount = 0;
                     int counter = 1;
                     for(DataSnapshot postSnapShot: dataSnapshot.getChildren()) {
                         if(postSnapShot.exists()) {
@@ -110,6 +112,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
                             counter++;
                         }
+                        addCount += 1;
                     }
                 }
 //                Log.v(TAG, "amount accepted" + toAdd.getName() + " from the database");

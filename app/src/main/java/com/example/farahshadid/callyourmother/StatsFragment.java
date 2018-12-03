@@ -135,7 +135,7 @@ public class StatsFragment extends Fragment {
                     GradientDrawable statsCircleBackground = (GradientDrawable) statsCircle.getBackground();
                     if (percentage <= 75.0 && percentage >= 25.0) {
                         statsCircleBackground.setStroke(15, Color.YELLOW);
-                        statsCircle.setTextColor(Color.BLACK);
+                        //statsCircle.setTextColor();
                     } else if (percentage < 25.0) {
                         statsCircleBackground.setStroke(15, Color.RED);
                         statsCircle.setTextColor(Color.RED);
