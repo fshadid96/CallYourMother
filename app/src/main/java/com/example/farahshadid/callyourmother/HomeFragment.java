@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             num1, num2, num3, num4, num5;
     private String TAG = "HomeFragment";
     private int b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0;
+    ListAdapter adapter;
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -126,6 +129,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+//======================================= getDeviceName ============================================
     public String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
@@ -135,7 +139,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             return capitalize(manufacturer) + " " + model;
         }
     }
-
+//======================================== capitalize ==============================================
     private String capitalize(String s) {
         if (s == null || s.length() == 0) {
             return "";
@@ -147,8 +151,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             return Character.toUpperCase(first) + s.substring(1);
         }
     }
-
-
+//========================================= onClick ================================================
     @Override
     public void onClick(View v) {
 
@@ -206,4 +209,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+//============================================= getContact =========================================
+
+    public void suggestionsGet(){
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
 }
