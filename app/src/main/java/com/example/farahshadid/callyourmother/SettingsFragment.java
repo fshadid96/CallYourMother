@@ -60,19 +60,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
      */
     public View setupUIPlusData(View view) {
         one = view.findViewById(R.id.button1);
-        one.findViewById(R.id.button1).setVisibility(View.INVISIBLE);
+        one.findViewById(R.id.button1).setVisibility(View.GONE);
         one.setOnClickListener(this);
         two = view.findViewById(R.id.button2);
-        two.findViewById(R.id.button2).setVisibility(View.INVISIBLE);
+        two.findViewById(R.id.button2).setVisibility(View.GONE);
         two.setOnClickListener(this);
         three = view.findViewById(R.id.button3);
-        three.findViewById(R.id.button3).setVisibility(View.INVISIBLE);
+        three.findViewById(R.id.button3).setVisibility(View.GONE);
         three.setOnClickListener(this);
         four = view.findViewById(R.id.button4);
-        four.findViewById(R.id.button4).setVisibility(View.INVISIBLE);
+        four.findViewById(R.id.button4).setVisibility(View.GONE);
         four.setOnClickListener(this);
         five = view.findViewById(R.id.button5);
-        five.findViewById(R.id.button5).setVisibility(View.INVISIBLE);
+        five.findViewById(R.id.button5).setVisibility(View.GONE);
         five.setOnClickListener(this);
         addContact = view.findViewById(R.id.button16);
         addContact.setOnClickListener(this);
@@ -149,35 +149,28 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             case R.id.button1:
                 deleteTopContact(one.getText().toString());
                 setupUIPlusData(mainView);
-                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button2:
                 deleteTopContact(two.getText().toString());
                 setupUIPlusData(mainView);
-                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button3:
                 deleteTopContact(three.getText().toString());
                 setupUIPlusData(mainView);
-                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button4:
                 deleteTopContact(four.getText().toString());
-                setupUIPlusData(mainView);
-                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button5:
                 deleteTopContact(five.getText().toString());
-                setupUIPlusData(mainView);
-                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
             case R.id.button16:
@@ -199,6 +192,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         Log.v(TAG,  "deleting" + name);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().getRoot();
         mDatabase.child("Users").child(getDeviceName()).child("topContacts").child(name).removeValue();
+        setupUIPlusData(mainView);
     }
 
     public String getDeviceName() {
