@@ -6,78 +6,94 @@
     android:layout_height="match_parent"
     android:id="@+id/relativeLayout">
 
-    <Button
-        android:id="@+id/button5"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="224dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     <Button
-        android:id="@+id/button1"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="224dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="13dp"
-        android:text="224dp"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-    <Button
-        android:id="@+id/button2"
+        android:id="@+id/con_1"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="78dp"
         android:layout_marginStart="82dp"
         android:layout_marginTop="19dp"
-        android:text="Button"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/contactToDeleteText" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/con_2"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="14dp"
-        android:text="Button"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/con_1" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/con_3"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="8dp"
-        android:text="Button"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/con_2" />
+
+    <Button
+        android:id="@+id/con_4"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_3" />
+
+    <Button
+        android:id="@+id/con_5"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="80dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_4" />
+
+    <!-- The add contact button  -->
+
+    <Button
+        android:id="@+id/addContact"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="224dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="80dp"
+        android:text="Add Contact"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/con_5"
+
+
+        />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/contactToDeleteText"
         android:layout_width="361dp"
         android:layout_height="38dp"
         android:layout_marginEnd="11dp"
@@ -93,7 +109,7 @@
         tools:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/messageText"
         android:layout_width="228dp"
         android:layout_height="69dp"
         android:layout_marginBottom="2dp"
@@ -103,12 +119,12 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button16"
-        app:layout_constraintEnd_toStartOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/selectContact"
+        app:layout_constraintEnd_toStartOf="@+id/inputBox"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/inputBox"
         android:layout_width="116dp"
         android:layout_height="68dp"
         android:layout_marginBottom="12dp"
@@ -118,19 +134,40 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/button16"
+        app:layout_constraintBottom_toTopOf="@+id/selectContact"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView15" />
+        app:layout_constraintStart_toEndOf="@+id/messageText" />
+
+    <!-- The text above the button -->
+    <TextView
+        android:id="@+id/textAboveSelect"
+        android:layout_width="361dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="11dp"
+        android:text="Select the contacts you want this to apply to:"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/selectContact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputBox"
+        tools:textAlignment="center" />
+
+
 
     <Button
-        android:id="@+id/button16"
+        android:id="@+id/selectContact"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="110dp"
         android:layout_marginStart="107dp"
-        android:text="Choose a Contact"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Select"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -143,7 +180,7 @@
         android:layout_height="4dp"
         android:layout_marginBottom="7dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintBottom_toTopOf="@+id/messageText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

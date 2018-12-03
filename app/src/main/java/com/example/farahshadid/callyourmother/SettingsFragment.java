@@ -1,5 +1,6 @@
 package com.example.farahshadid.callyourmother;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,16 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +30,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     Button four;
     Button five;
     EditText notiNumView;
+    Button selectContactForNotification;
     Button addContact;
     static int notiNum ;
     static int addCount = 0;
@@ -59,26 +53,36 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
      * @return
      */
     public View setupUIPlusData(View view) {
-        one = view.findViewById(R.id.button1);
-        one.findViewById(R.id.button1).setVisibility(View.GONE);
+        one = view.findViewById(R.id.con_1);
+        one.findViewById(R.id.con_1).setVisibility(View.GONE);
         one.setOnClickListener(this);
-        two = view.findViewById(R.id.button2);
-        two.findViewById(R.id.button2).setVisibility(View.GONE);
+
+        two = view.findViewById(R.id.con_2);
+        two.findViewById(R.id.con_2).setVisibility(View.GONE);
         two.setOnClickListener(this);
-        three = view.findViewById(R.id.button3);
-        three.findViewById(R.id.button3).setVisibility(View.GONE);
+
+        three = view.findViewById(R.id.con_3);
+        three.findViewById(R.id.con_3).setVisibility(View.GONE);
         three.setOnClickListener(this);
-        four = view.findViewById(R.id.button4);
-        four.findViewById(R.id.button4).setVisibility(View.GONE);
+
+        four = view.findViewById(R.id.con_4);
+        four.findViewById(R.id.con_4).setVisibility(View.GONE);
         four.setOnClickListener(this);
-        five = view.findViewById(R.id.button5);
-        five.findViewById(R.id.button5).setVisibility(View.GONE);
+
+        five = view.findViewById(R.id.con_5);
+        five.findViewById(R.id.con_5).setVisibility(View.GONE);
         five.setOnClickListener(this);
-        addContact = view.findViewById(R.id.button16);
+
+        selectContactForNotification = view.findViewById(R.id.selectContact);
+        selectContactForNotification.setOnClickListener(this);
+
+        addContact = view.findViewById(R.id.addContact);
         addContact.setOnClickListener(this);
 
 
-        notiNumView =  (EditText) view.findViewById(R.id.editText);
+
+
+        notiNumView =  (EditText) view.findViewById(R.id.inputBox);
         notiNumView.setText("12");
         notiNum = Integer.parseInt(notiNumView.getText().toString());
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -100,23 +104,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                             switch (counter) {
                                 case 1:
                                     one.setText(name);
-                                    one.findViewById(R.id.button1).setVisibility(View.VISIBLE);
+                                    one.findViewById(R.id.con_1).setVisibility(View.VISIBLE);
                                     break;
                                 case 2:
                                     two.setText(name);
-                                    two.findViewById(R.id.button2).setVisibility(View.VISIBLE);
+                                    two.findViewById(R.id.con_2).setVisibility(View.VISIBLE);
                                     break;
                                 case 3:
                                     three.setText(name);
-                                    three.findViewById(R.id.button3).setVisibility(View.VISIBLE);
+                                    three.findViewById(R.id.con_3).setVisibility(View.VISIBLE);
                                     break;
                                 case 4:
                                     four.setText(name);
-                                    four.findViewById(R.id.button4).setVisibility(View.VISIBLE);
+                                    four.findViewById(R.id.con_4).setVisibility(View.VISIBLE);
                                     break;
                                 case 5:
                                     five.setText(name);
-                                    five.findViewById(R.id.button5).setVisibility(View.VISIBLE);
+                                    five.findViewById(R.id.con_5).setVisibility(View.VISIBLE);
                                     break;
                             }
 
@@ -146,38 +150,45 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.button1:
+            case R.id.con_1:
                 deleteTopContact(one.getText().toString());
                 setupUIPlusData(mainView);
                 addCount--;
                 break;
 
-            case R.id.button2:
+            case R.id.con_2:
                 deleteTopContact(two.getText().toString());
                 setupUIPlusData(mainView);
                 addCount--;
                 break;
 
-            case R.id.button3:
+            case R.id.con_3:
                 deleteTopContact(three.getText().toString());
                 setupUIPlusData(mainView);
                 addCount--;
                 break;
 
-            case R.id.button4:
+            case R.id.con_4:
                 deleteTopContact(four.getText().toString());
                 addCount--;
                 break;
 
-            case R.id.button5:
+            case R.id.con_5:
                 deleteTopContact(five.getText().toString());
                 addCount--;
                 break;
-            case R.id.button16:
+
+            case R.id.selectContact:
+                    Intent notify = new Intent(getContext(), UpdateNotification.class);
+                    startActivity(notify);
+                    break;
+
+            case R.id.addContact:
                 if(addCount < 5) {
                     Intent addContact = new Intent(getContext(), AddContactActivity.class);
                     startActivity(addContact);
 
+                    break;
                 } else {
                     Snackbar.make(v, "You already have 5 contacts selected", Snackbar.LENGTH_SHORT).setAction("Action",
                             null).show();
@@ -216,8 +227,4 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             return Character.toUpperCase(first) + s.substring(1);
         }
     }
-
-
-
-
 }
