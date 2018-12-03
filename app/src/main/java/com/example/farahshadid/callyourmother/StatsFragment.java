@@ -2,6 +2,7 @@ package com.example.farahshadid.callyourmother;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -54,7 +55,7 @@ public class StatsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.activity_stats, container, false);
 
-        userName = "Luke";
+        userName = getDeviceName();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         person1CallsMade = v.findViewById(R.id.person1CallsMade);
@@ -74,7 +75,7 @@ public class StatsFragment extends Fragment {
         person2Name = v.findViewById(R.id.person2Name);
         person3Name = v.findViewById(R.id.person3Name);
         person4Name = v.findViewById(R.id.person4Name);
-        person4Name = v.findViewById(R.id.person5Name);
+        person5Name = v.findViewById(R.id.person5Name);
 
         // Going through database to update the statistics and commitment score.
         mDatabase.child("Users").child(userName).child("topContacts").addValueEventListener(new ValueEventListener() {
@@ -82,9 +83,10 @@ public class StatsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 totalNotifications = 0;
                 totalCallsMade = 0;
+                percentage = 0;
                 int counter = 0; //Will use this to figure out which textViews to update
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
+                    Log.i(TAG,"ENTERING LOOP");
                     Long callsMade = (Long) postSnapshot.child("amountAccepted").getValue();
                     Long notifications = (Long) postSnapshot.child("amountNotified").getValue();
                     String personName = (String) postSnapshot.child("name").getValue();
@@ -121,23 +123,29 @@ public class StatsFragment extends Fragment {
                         }
                         counter += 1;
                     }
+                    else {
+                        Log.i(TAG,"THINGS WERE NULL");
+                    }
                 }
-                percentage = (totalCallsMade * 100.0f) / totalNotifications;
-                GradientDrawable statsCircleBackground = (GradientDrawable) statsCircle.getBackground();
-                if (percentage <= 75.0 && percentage >= 25.0) {
-                    statsCircleBackground.setStroke(15, Color.YELLOW);
-                    statsCircle.setTextColor(Color.BLACK);
-                }
-                else if (percentage <25.0) {
-                    statsCircleBackground.setStroke(15,Color.RED);
-                    statsCircle.setTextColor(Color.RED);
+                if(totalNotifications == 0){
+                    percentage = 0;
                 }
                 else {
-                    statsCircleBackground.setStroke(15,Color.GREEN);
-                    statsCircle.setTextColor(Color.GREEN);
+                    percentage = (totalCallsMade * 100.0f) / totalNotifications;
+                    GradientDrawable statsCircleBackground = (GradientDrawable) statsCircle.getBackground();
+                    if (percentage <= 75.0 && percentage >= 25.0) {
+                        statsCircleBackground.setStroke(15, Color.YELLOW);
+                        statsCircle.setTextColor(Color.BLACK);
+                    } else if (percentage < 25.0) {
+                        statsCircleBackground.setStroke(15, Color.RED);
+                        statsCircle.setTextColor(Color.RED);
+                    } else {
+                        statsCircleBackground.setStroke(15, Color.GREEN);
+                        statsCircle.setTextColor(Color.GREEN);
+                    }
+                    statsCircle.setText((int)percentage + "%");
                 }
-                statsCircle.setText(percentage + "%");
-                // Updating db for person's commitment score.
+                // Updating db for user's commitment score.
                 mDatabase.child("Users").child(userName).child("commitmentScore").setValue(percentage);
     }
             @Override
@@ -146,5 +154,27 @@ public class StatsFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+    private String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
     }
 }
