@@ -42,13 +42,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     static int addCount = 0;
     private DatabaseReference mDatabase;
     private FirebaseDatabase db;
+    private View mainView;
     private static final String TAG = "Firebase Activity: ";
     private static final String DELETE = "delete ";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        mainView = inflater.inflate(R.layout.fragment_settings, container, false);
+        return setupUIPlusData(mainView);
+    }
+
+    /***
+     * Created this method so that we can reset the UI every time a contact gets deleted.
+     * @param view
+     * @return
+     */
+    public View setupUIPlusData(View view) {
         one = view.findViewById(R.id.button1);
         one.findViewById(R.id.button1).setVisibility(View.INVISIBLE);
         one.setOnClickListener(this);
@@ -84,9 +94,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                         if(postSnapShot.exists()) {
                             String name = (String) postSnapShot.child("name").getValue();
                             ArrayList<String> nums = (ArrayList<String>) postSnapShot.child("numbers").getValue();
-                           // Contact toAdd = new Contact(Math.toIntExact(id)  ,  name,nums, Math.toIntExact(amountAccepted) , Math.toIntExact(amountNotified), null);
+                            // Contact toAdd = new Contact(Math.toIntExact(id)  ,  name,nums, Math.toIntExact(amountAccepted) , Math.toIntExact(amountNotified), null);
                             //Log.v(TAG, "amount accepted" + toAdd.getName() + " from the database");
-                          //  contacts.add(toAdd);
+                            //  contacts.add(toAdd);
                             switch (counter) {
                                 case 1:
                                     one.setText(name);
@@ -138,31 +148,36 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             case R.id.button1:
                 deleteTopContact(one.getText().toString());
-                v.setVisibility(View.INVISIBLE);
+                setupUIPlusData(mainView);
+                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button2:
                 deleteTopContact(two.getText().toString());
-                v.setVisibility(View.INVISIBLE);
+                setupUIPlusData(mainView);
+                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button3:
                 deleteTopContact(three.getText().toString());
-                v.setVisibility(View.INVISIBLE);
+                setupUIPlusData(mainView);
+                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button4:
                 deleteTopContact(four.getText().toString());
-                v.setVisibility(View.INVISIBLE);
+                setupUIPlusData(mainView);
+                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button5:
                 deleteTopContact(five.getText().toString());
-                v.setVisibility(View.INVISIBLE);
+                setupUIPlusData(mainView);
+                //v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
             case R.id.button16:

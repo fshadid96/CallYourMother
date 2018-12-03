@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout2">
 
     <!-- Top Contact Title -->
 
@@ -9,15 +12,17 @@
         android:id="@+id/topContactText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:text="Your Top Contacts"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Top Contact Buttons -->
@@ -25,71 +30,90 @@
         android:id="@+id/top_con1"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="105dp"
-        android:background="#ccc"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/top_con2"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="25dp"
-        android:layout_marginTop="180dp"
-        android:background="#ccc"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_con1" />
 
     <TextView
         android:id="@+id/top_con3"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="217dp"
         android:layout_marginHorizontal="25dp"
-        android:background="#ccc"
+        android:layout_marginTop="29dp"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_con2" />
 
     <TextView
         android:id="@+id/top_con4"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="145dp"
         android:layout_marginHorizontal="25dp"
-        android:background="#ccc"
+        android:layout_marginTop="30dp"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_con3" />
 
     <TextView
         android:id="@+id/top_con5"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="67dp"
         android:layout_marginHorizontal="25dp"
-        android:background="#ccc"
+        android:layout_marginTop="27dp"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         android:textSize="30sp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_con4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="322dp"
+        android:layout_height="21dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="13dp"
+        android:text="Click a contact to reveal their number!"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topContactText" />
 
     <!--<View-->
     <!--android:layout_width="match_parent"-->
@@ -151,5 +175,5 @@
     <!--android:visibility="invisible"-->
     <!--/>-->
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
 
