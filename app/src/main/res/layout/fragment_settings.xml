@@ -84,6 +84,8 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:text="@string/delete_a_contact"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,11 +95,13 @@
     <TextView
         android:id="@+id/textView15"
         android:layout_width="228dp"
-        android:layout_height="61dp"
+        android:layout_height="69dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:text="@string/remind"
+        android:layout_marginTop="20dp"
+        android:text="How often (in hours) would you like to be reminded about a contact?"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/editText"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,29 +111,43 @@
         android:id="@+id/editText"
         android:layout_width="116dp"
         android:layout_height="68dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="number"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/button16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView15" />
 
     <Button
         android:id="@+id/button16"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="110dp"
         android:layout_marginStart="107dp"
-        android:text="Button"
+        android:text="Choose a Contact"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.423"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="4dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="9dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1" />
 
 
 </android.support.constraint.ConstraintLayout>
