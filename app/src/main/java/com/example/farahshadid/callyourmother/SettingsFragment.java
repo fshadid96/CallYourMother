@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +37,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     Button four;
     Button five;
     EditText notiNumView;
+    Button addContact;
     static int notiNum ;
+    static int addCount = 5;
     private DatabaseReference mDatabase;
     private FirebaseDatabase db;
     private static final String TAG = "Firebase Activity: ";
@@ -61,6 +64,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         five = view.findViewById(R.id.button5);
         five.findViewById(R.id.button5).setVisibility(View.INVISIBLE);
         five.setOnClickListener(this);
+        addContact = view.findViewById(R.id.button16);
+        addContact.setOnClickListener(this);
+
 
         notiNumView =  (EditText) view.findViewById(R.id.notiNum);
         notiNumView.setText("12");
@@ -130,24 +136,41 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             case R.id.button1:
                 deleteTopContact(one.getText().toString());
                 v.setVisibility(View.GONE);
+                addCount--;
                 break;
 
             case R.id.button2:
                 deleteTopContact(two.getText().toString());
                 v.setVisibility(View.GONE);
+                addCount--;
                 break;
 
             case R.id.button3:
                 deleteTopContact(three.getText().toString());
+                v.setVisibility(View.GONE);
+                addCount--;
                 break;
 
             case R.id.button4:
                 deleteTopContact(four.getText().toString());
+                v.setVisibility(View.GONE);
+                addCount--;
                 break;
 
             case R.id.button5:
                 deleteTopContact(five.getText().toString());
+                v.setVisibility(View.GONE);
+                addCount--;
                 break;
+            case R.id.button16:
+                if(addCount < 5) {
+                    Intent addContact = new Intent(getContext(), AddContactActivity.class);
+                    startActivity(addContact);
+
+                } else {
+                    Snackbar.make(v, "You already have 5 contacts selected", Snackbar.LENGTH_SHORT).setAction("Action",
+                            null).show();
+                }
         }
 
     }
