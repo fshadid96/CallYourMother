@@ -4,7 +4,7 @@
     <string name="title_activity_stats">StatsActivity</string>
     <string name="top_contact_text">Top Contacts</string>
     <string name="suggestion_text">Suggestions</string>
-    <string name="delete_a_contact">Click a button to delete A contact</string>
-    <string name="remind">How often would you like to be reminded</string>
-
+    <string name="delete_a_contact">Click a contact to delete</string>
+    <string name="remind">How often would you like to be reminded (in hours) </string>
+    <string name="add_contact">Add a contact</string>
 </resources>

@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     Button three;
     Button four;
     Button five;
+    EditText notiNumView;
+    static int notiNum ;
     private DatabaseReference mDatabase;
     private FirebaseDatabase db;
     private static final String TAG = "Firebase Activity: ";
@@ -44,16 +47,24 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         final View view = inflater.inflate(R.layout.fragment_settings, container, false);
         one = view.findViewById(R.id.button1);
+        one.findViewById(R.id.button1).setVisibility(View.INVISIBLE);
         one.setOnClickListener(this);
         two = view.findViewById(R.id.button2);
+        two.findViewById(R.id.button2).setVisibility(View.INVISIBLE);
         two.setOnClickListener(this);
         three = view.findViewById(R.id.button3);
+        three.findViewById(R.id.button3).setVisibility(View.INVISIBLE);
         three.setOnClickListener(this);
         four = view.findViewById(R.id.button4);
+        four.findViewById(R.id.button4).setVisibility(View.INVISIBLE);
         four.setOnClickListener(this);
         five = view.findViewById(R.id.button5);
+        five.findViewById(R.id.button5).setVisibility(View.INVISIBLE);
         five.setOnClickListener(this);
 
+        notiNumView =  (EditText) view.findViewById(R.id.notiNum);
+        notiNumView.setText("12");
+        notiNum = Integer.parseInt(notiNumView.getText().toString());
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("Users").child(getDeviceName()).child("topContacts").addValueEventListener(new ValueEventListener() {
@@ -63,9 +74,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                     int counter = 1;
                     for(DataSnapshot postSnapShot: dataSnapshot.getChildren()) {
                         if(postSnapShot.exists()) {
-                            Long amountAccepted = (Long) postSnapShot.child("amountAccepted").getValue();
-                            Long amountNotified = (Long) postSnapShot.child("amountNotified").getValue();
-                            Long id  = (Long) postSnapShot.child("id").getValue();
                             String name = (String) postSnapShot.child("name").getValue();
                             ArrayList<String> nums = (ArrayList<String>) postSnapShot.child("numbers").getValue();
                            // Contact toAdd = new Contact(Math.toIntExact(id)  ,  name,nums, Math.toIntExact(amountAccepted) , Math.toIntExact(amountNotified), null);
@@ -74,18 +82,23 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                             switch (counter) {
                                 case 1:
                                     one.setText(name);
+                                    one.findViewById(R.id.button1).setVisibility(View.VISIBLE);
                                     break;
                                 case 2:
                                     two.setText(name);
+                                    two.findViewById(R.id.button2).setVisibility(View.VISIBLE);
                                     break;
                                 case 3:
                                     three.setText(name);
+                                    three.findViewById(R.id.button3).setVisibility(View.VISIBLE);
                                     break;
                                 case 4:
                                     four.setText(name);
+                                    four.findViewById(R.id.button4).setVisibility(View.VISIBLE);
                                     break;
                                 case 5:
                                     five.setText(name);
+                                    five.findViewById(R.id.button5).setVisibility(View.VISIBLE);
                                     break;
                             }
 
@@ -116,8 +129,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             case R.id.button1:
                 deleteTopContact(one.getText().toString());
-                one.setText(" EMPTY  ");
-
+                v.setVisibility(View.GONE);
                 break;
 
             case R.id.button2:
