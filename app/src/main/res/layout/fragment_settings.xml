@@ -8,60 +8,70 @@
 
     <Button
         android:id="@+id/button5"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="8dp"
         android:text="Button"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     <Button
         android:id="@+id/button1"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="13dp"
         android:text="224dp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
 
     <Button
         android:id="@+id/button2"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="78dp"
         android:layout_marginStart="82dp"
         android:layout_marginTop="19dp"
         android:text="Button"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <Button
         android:id="@+id/button3"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="14dp"
         android:text="Button"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <Button
         android:id="@+id/button4"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="80dp"
         android:layout_marginTop="8dp"
         android:text="Button"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
@@ -109,15 +119,17 @@
 
     <Button
         android:id="@+id/button16"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="107dp"
-        android:layout_marginEnd="110dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginStart="107dp"
         android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

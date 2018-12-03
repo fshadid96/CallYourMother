@@ -135,31 +135,31 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
             case R.id.button1:
                 deleteTopContact(one.getText().toString());
-                v.setVisibility(View.GONE);
+                v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button2:
                 deleteTopContact(two.getText().toString());
-                v.setVisibility(View.GONE);
+                v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button3:
                 deleteTopContact(three.getText().toString());
-                v.setVisibility(View.GONE);
+                v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button4:
                 deleteTopContact(four.getText().toString());
-                v.setVisibility(View.GONE);
+                v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
 
             case R.id.button5:
                 deleteTopContact(five.getText().toString());
-                v.setVisibility(View.GONE);
+                v.setVisibility(View.INVISIBLE);
                 addCount--;
                 break;
             case R.id.button16:

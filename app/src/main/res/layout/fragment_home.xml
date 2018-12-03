@@ -21,72 +21,67 @@
     <TextView
         android:id="@+id/top_con1"
         android:layout_width="fill_parent"
-        android:layout_below="@id/topContactText"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginBottom="20dp"
-        android:textStyle="bold"
-        android:background="#ccc"
         android:layout_height="50dp"
-        android:textSize="30sp"
+        android:layout_below="@id/topContactText"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="25dp"
+        android:background="#ccc"
         android:gravity="center"
-        android:visibility="invisible"
-        />
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/top_con2"
         android:layout_width="fill_parent"
-        android:layout_marginHorizontal="25dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/top_con1"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="25dp"
         android:background="#ccc"
-        android:layout_height="50dp"
-        android:textSize="30sp"
         android:gravity="center"
-        android:visibility="invisible"
-        />
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/top_con3"
         android:layout_width="fill_parent"
-        android:layout_marginHorizontal="25dp"
+        android:layout_height="50dp"
         android:layout_below="@id/top_con2"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="25dp"
         android:background="#ccc"
-        android:layout_height="50dp"
-        android:textSize="30sp"
         android:gravity="center"
-        android:visibility="invisible"
-        />
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/top_con4"
         android:layout_width="fill_parent"
-        android:layout_marginHorizontal="25dp"
+        android:layout_height="50dp"
         android:layout_below="@id/top_con3"
         android:layout_marginBottom="20dp"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="25dp"
         android:background="#ccc"
-        android:layout_height="50dp"
-        android:textSize="30sp"
         android:gravity="center"
-        android:visibility="invisible"
-        />
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/top_con5"
         android:layout_width="fill_parent"
-        android:layout_marginHorizontal="25dp"
+        android:layout_height="50dp"
         android:layout_below="@id/top_con4"
         android:layout_marginBottom="25dp"
-        android:textStyle="bold"
+        android:layout_marginHorizontal="25dp"
         android:background="#ccc"
-        android:layout_height="50dp"
-        android:textSize="30sp"
         android:gravity="center"
-        android:visibility="invisible"
-        />
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:visibility="invisible" />
 
     <!--<View-->
     <!--android:layout_width="match_parent"-->
