@@ -143,8 +143,8 @@ public class StatsFragment extends Fragment {
                         statsCircleBackground.setStroke(15, Color.GREEN);
                         statsCircle.setTextColor(Color.GREEN);
                     }
-                    statsCircle.setText((int)percentage + "%");
                 }
+                statsCircle.setText((int)percentage + "%");
                 // Updating db for user's commitment score.
                 mDatabase.child("Users").child(userName).child("commitmentScore").setValue(percentage);
     }
