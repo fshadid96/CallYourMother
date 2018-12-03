@@ -68,7 +68,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         addContact.setOnClickListener(this);
 
 
-        notiNumView =  (EditText) view.findViewById(R.id.notiNum);
+        notiNumView =  (EditText) view.findViewById(R.id.editText);
         notiNumView.setText("12");
         notiNum = Integer.parseInt(notiNumView.getText().toString());
         mDatabase = FirebaseDatabase.getInstance().getReference();
