@@ -71,6 +71,8 @@ public class User {
 
     }
 
+
+
     public ArrayList<Contact> getTopContacts() {
         return topContacts;
     }

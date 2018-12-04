@@ -22,13 +22,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private DatabaseReference mDatabase;
     private TextView topConButton1, topConButton2, topConButton3, topConButton4,
-            topConButton5, sugConButton1, sugConButton2, sugConButton3;
+            topConButton5;
     private String userName, uname1, uname2, uname3, uname4, uname5,
             num1, num2, num3, num4, num5;
     private String TAG = "HomeFragment";
     private int b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0;
-    ListAdapter adapter;
-    RecyclerView recyclerView;
+
 
     @Nullable
     @Override
@@ -111,20 +110,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Log.i(TAG, "Something kinda Bad Happened!");
             }
         });
-        // Suggestions
-
-        //============================================ Sugggestions
-//        sugConButton1 = v.findViewById(R.id.sugg_con1);
-//        sugConButton1.setText("Thank you");
-//        sugConButton1.setOnClickListener(this);
-//
-//        sugConButton2 = v.findViewById(R.id.sugg_con2);
-//        sugConButton2.setText("Based");
-//        sugConButton2.setOnClickListener(this);
-//
-//        sugConButton3 = v.findViewById(R.id.sugg_con3);
-//        sugConButton3.setText("God");
-//        sugConButton3.setOnClickListener(this)
 
         return v;
     }
@@ -209,24 +194,4 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-//============================================= getContact =========================================
-
-    public void suggestionsGet(){
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
 }

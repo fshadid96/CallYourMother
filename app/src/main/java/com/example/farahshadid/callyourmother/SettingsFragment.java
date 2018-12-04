@@ -187,12 +187,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 if(addCount < 5) {
                     Intent addContact = new Intent(getContext(), AddContactActivity.class);
                     startActivity(addContact);
-
-                    break;
                 } else {
                     Snackbar.make(v, "You already have 5 contacts selected", Snackbar.LENGTH_SHORT).setAction("Action",
                             null).show();
                 }
+                break;
         }
 
     }
