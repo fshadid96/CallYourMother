@@ -79,18 +79,17 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="9dp"
         android:layout_marginEnd="80dp"
-        android:text="Add Contact"
+        android:layout_marginStart="80dp"
+        android:text="Add Contacts"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/con_5"
-
-
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/contactToDeleteText"
@@ -112,7 +111,7 @@
         android:id="@+id/messageText"
         android:layout_width="228dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:text="How often (in hours) would you like to be reminded about a contact?"
@@ -139,22 +138,6 @@
         app:layout_constraintStart_toEndOf="@+id/messageText" />
 
     <!-- The text above the button -->
-    <TextView
-        android:id="@+id/textAboveSelect"
-        android:layout_width="361dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Apply to all contacts"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/selectContact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputBox"
-        tools:textAlignment="center" />
 
 
     <Button
@@ -162,24 +145,25 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="110dp"
         android:layout_marginStart="107dp"
-        android:text="Apply"
+        android:text="Apply to All Contacts"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.423"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="4dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="13dp"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/messageText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 
