@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,8 +84,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
 
         notiNumView =  (EditText) view.findViewById(R.id.inputBox);
-        notiNumView.setText("12");
-        notiNum = Integer.parseInt(notiNumView.getText().toString());
+        notiNumView.setText("2");
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
@@ -179,7 +179,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.selectContact:
-                    Intent notify = new Intent(getContext(), UpdateNotification.class);
+                    Intent notify = new Intent(getContext(), HomeActivity.class);
+                    notiNum = Integer.parseInt(notiNumView.getText().toString());
+                    notify.putExtra("setting", notiNum);
                     startActivity(notify);
                     break;
 

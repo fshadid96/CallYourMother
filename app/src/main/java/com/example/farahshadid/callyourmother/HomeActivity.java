@@ -17,6 +17,7 @@ import android.content.Intent;
 
 public class HomeActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
 
         /**
-         * @author Martin Palacios - PROBLEMATIC CODE
+         * @author Martin Palacios
          * Code that will run the notifications class in the background
          */
         Intent intent = new Intent(HomeActivity.this, MyAlarmReceiver.class);
@@ -44,8 +45,13 @@ public class HomeActivity extends AppCompatActivity {
         alarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                  SystemClock.elapsedRealtime()+ 10 * 1000, pendingIntent);
 
+        int setting = getIntent().getIntExtra("setting", 2);
+        Log.i("HomeActivity", "After clicking apply, the settings value is: "+setting);
+        alarm.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, currentTime, AlarmManager.INTERVAL_DAY / setting , pendingIntent);
 
     }
+
+
 
     // This is the listener that makes sure that allows the fragments to switch from one another
     private BottomNavigationView.OnNavigationItemSelectedListener nListner =

@@ -3,6 +3,7 @@ package com.example.farahshadid.callyourmother;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class UpdateNotification extends Activity{
 
         String number = getIntent().getStringExtra("number");
         //This is name of the phones owner
-        name = getIntent().getStringExtra("name");
+        name = getDeviceName();
 
         //This is the name of the contact being called
         nameBeingCalled = getIntent().getStringExtra("nameBeingCalled");
@@ -80,5 +81,32 @@ public class UpdateNotification extends Activity{
 
         startActivity(mNotificationIntent);
         Log.i(TAG, "Call screen is open");
+    }
+    /**
+     *Got the device name and to set it as a user
+     *
+     * Source: https://stackoverflow.com/questions/7071281/get-android-device-name
+     * @return
+     */
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+    private String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
     }
 }

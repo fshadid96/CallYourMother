@@ -5,6 +5,6 @@
     <string name="top_contact_text">Top Contacts</string>
     <string name="suggestion_text">Suggestions</string>
     <string name="delete_a_contact">Click a contact to delete</string>
-    <string name="remind">How often would you like to be reminded (in hours) </string>
+    <string name="remind">How many times a day would you like to be notified?  </string>
     <string name="add_contact">Add a contact</string>
 </resources>

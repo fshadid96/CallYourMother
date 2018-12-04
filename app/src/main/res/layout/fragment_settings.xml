@@ -143,10 +143,10 @@
         android:id="@+id/textAboveSelect"
         android:layout_width="361dp"
         android:layout_height="38dp"
+        android:layout_marginEnd="11dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="11dp"
-        android:text="Select the contacts you want this to apply to:"
+        android:text="Apply to all contacts"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp"
@@ -157,17 +157,15 @@
         tools:textAlignment="center" />
 
 
-
     <Button
         android:id="@+id/selectContact"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="107dp"
-        android:layout_marginEnd="110dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Select"
+        android:layout_marginEnd="110dp"
+        android:layout_marginStart="107dp"
+        android:text="Apply"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
