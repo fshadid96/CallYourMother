@@ -34,10 +34,12 @@ public class UpdateNotification extends Activity{
         String number = getIntent().getStringExtra("number");
         //This is name of the phones owner
         name = getIntent().getStringExtra("name");
+
         //This is the name of the contact being called
         nameBeingCalled = getIntent().getStringExtra("nameBeingCalled");
+        Log.i(TAG, "Name of person being called: "+nameBeingCalled);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Users").child(name).child("topContacts").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("Users").child(name).child("topContacts").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -65,7 +67,10 @@ public class UpdateNotification extends Activity{
         //Intent that will be used if the notification is clicked
         Intent mNotificationIntent = new Intent(Intent.ACTION_DIAL);
 
-        mNotificationIntent.setData(Uri.parse("tel:0377778888"));
+        //String test = "tel:977777777";
+        String formatNumber = "tel:" + number.replaceAll("[\\D]", "");
+        Log.i(TAG, "FormatNumber: "+formatNumber+". Regular number: "+number);
+        mNotificationIntent.setData(Uri.parse(formatNumber));
 
         if(mNotificationIntent.resolveActivity(getPackageManager()) != null){
 
@@ -74,5 +79,6 @@ public class UpdateNotification extends Activity{
         }
 
         startActivity(mNotificationIntent);
+        Log.i(TAG, "Call screen is open");
     }
 }

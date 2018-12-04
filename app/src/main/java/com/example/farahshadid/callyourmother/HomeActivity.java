@@ -33,17 +33,17 @@ public class HomeActivity extends AppCompatActivity {
         /**
          * @author Martin Palacios - PROBLEMATIC CODE
          * Code that will run the notifications class in the background
-
-        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), MyAlarmReceiver.REQUEST_CODE,
+         */
+        Intent intent = new Intent(HomeActivity.this, MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(HomeActivity.this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long currentTime = System.currentTimeMillis();
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         Log.i("HomeActivity", "Bout to set alarm");
-        alarm.set(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + 10 * 1000, pendingIntent);
-        */
+        alarm.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                 SystemClock.elapsedRealtime()+ 10 * 1000, pendingIntent);
+
 
     }
 
