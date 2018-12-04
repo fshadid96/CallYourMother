@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,10 +32,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -51,6 +59,8 @@ public class AddContactActivity extends AppCompatActivity implements SearchView.
     ArrayList<Contact> contacts;
     CoordinatorLayout parent;
     boolean started = false;
+    private static final String TAG = "Add Contact Activity ";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,32 +95,75 @@ public class AddContactActivity extends AppCompatActivity implements SearchView.
 
         final SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         fab = findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (adapter.getSelected().size() > 5 - SettingsFragment.addCount) {
-                    if (adapter.getSelected().size() > 5 - SettingsFragment.addCount ) {
-                        Snackbar.make(view, "Only choose "+ SettingsFragment.addCount +  " contact", Snackbar.LENGTH_SHORT).setAction("Action",
+                Log.i(TAG, "A CLICK HAS HAPPENED");
+                Log.i(TAG, adapter.getSelected().size() + "what we are selecting");
+                Log.i(TAG, SettingsFragment.addCount + "what we have");
+
+                if(adapter.getSelected().size() > 0  ){
+
+                    if (adapter.getSelected().size() + SettingsFragment.addCount > 5) {
+                        Snackbar.make(view, "Only choose " + SettingsFragment.addCount + " contact", Snackbar.LENGTH_SHORT).setAction("Action",
                                 null).show();
                     } else {
-                        ArrayList<Contact> selected = adapter.getSelected();
+                        Log.i(TAG, "In the outer else statement");
+                        final ArrayList<Contact> selected = adapter.getSelected();
                         System.out.print("size of line adapter: " + selected.size());
-                        user = new User(getDeviceName(), selected);
-                        user.writeNewUser(getDeviceName(), selected);
+                        final ArrayList<Contact> topContactListFromFirebase = new ArrayList<Contact>();
+                        final ArrayList<Contact> allContacts = new ArrayList<Contact>();
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference ref = database.getReference().getRoot().child("Users").child(getDeviceName());
 
-                        pref.edit().putBoolean(SplashActivity.PREF_KEY, false).apply();
-                        // Launch home activity
-                        Intent i = new Intent(AddContactActivity.this, HomeActivity.class);
-                        startActivity(i);
-                        finish();
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                    Log.i(TAG, "commitScore scope");
+                                    String username = dataSnapshot.child("username").getValue(String.class);
+                                    for (DataSnapshot postSnapShot : dataSnapshot.child("topContacts").getChildren()) {
+                                        if (postSnapShot.exists()) {
+                                            Log.i(TAG, "getting top contacts");
+                                            String name = (String) postSnapShot.child("name").getValue(String.class);
+                                            ArrayList<String> nums = (ArrayList<String>) postSnapShot.child("numbers").getValue();
+                                            Long id = (Long) postSnapShot.child("id").getValue();
+                                            Long amountAccepted = (Long) postSnapShot.child("amountAccepted").getValue();
+                                            Long amountNotified = (Long) postSnapShot.child("amountNotified").getValue();
+
+                                            Contact temp = new Contact(Math.toIntExact(id), name, nums, Math.toIntExact(amountAccepted), Math.toIntExact(amountNotified), null);
+                                            topContactListFromFirebase.add(temp);
+                                        }
+                                    }
+                                    Log.i(TAG, "for loop done");
+
+                                Log.i(TAG, "the size of topcon; " + topContactListFromFirebase.size());
+                                Log.i(TAG, "Items from topcon: " + topContactListFromFirebase.toString());
+                                allContacts.addAll(topContactListFromFirebase);
+                                allContacts.addAll(selected);
+                                user = new User(getDeviceName(), allContacts);
+                                user.writeNewUser(getDeviceName(), allContacts);
+                                // Launch home activity
+                                Log.i(TAG, "THE DATA IS ADDED");
+
+                                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                Log.i(TAG, "Bad ting yeah");
+                            }
+                        });
                     }
-                } else {
-                    Snackbar.make(view, "Please choose some contacts", Snackbar.LENGTH_SHORT).setAction("Action",
-                            null).show();
-                }
-            }
+                }}
         });
+
     }
+
+
+
 
     /**
      *Got the device name and to set it as a user
@@ -118,7 +171,7 @@ public class AddContactActivity extends AppCompatActivity implements SearchView.
      * Source: https://stackoverflow.com/questions/7071281/get-android-device-name
      * @return
      */
-    public String getDeviceName() {
+    public String getDeviceName(){
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
         if (model.startsWith(manufacturer)) {
